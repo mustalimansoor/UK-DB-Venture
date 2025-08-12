@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community-Owned Startup Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Community Trust Palette (Off-white, Dark Slate, Muted Teal, Gold Accent) -->
+    <!-- Application Structure Plan: A single-page, section-based design to guide the user through the proposal. Starts with the high-level vision, allows interactive exploration of industry options (with dynamic charts) and legal structures, presents a clear roadmap, and ends with a call to action. This non-linear exploration is more engaging than a static document. -->
+    <!-- Visualization & Content Choices: Report Info -> Goal -> Viz/Method -> Interaction -> Justification. 1. Funding Breakdown -> Compare proportions -> Chart.js Donut Chart -> Click on industry card -> Visually intuitive way to see capital allocation. 2. Next Steps -> Clarify process -> HTML/CSS Timeline -> Static with hover effects -> More engaging and easier to follow than a list. 3. Industry/Legal Options -> Compare choices -> Interactive Cards -> Click to expand -> Organizes complex info cleanly, preventing information overload. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8; /* Warm Off-white */
+            color: #2D3748; /* Dark Slate */
+        }
+        .accent-bg { background-color: #387A7A; } /* Muted Teal */
+        .accent-text { color: #387A7A; }
+        .highlight-bg { background-color: #D69E2E; } /* Gold Accent */
+        .highlight-text { color: #D69E2E; }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #387A7A;
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: -0.875rem;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 9999px;
+            background-color: #FDFBF8;
+            border: 4px solid #387A7A;
+        }
+        .modal-content {
+            max-height: 90vh;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="accent-bg text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="text-xl font-bold">UK Dawoodi Bohra Community Venture</div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#vision" class="nav-link font-medium">The Vision</a>
+                    <a href="#industries" class="nav-link font-medium">Industries</a>
+                    <a href="#structure" class="nav-link font-medium">Structure</a>
+                    <a href="#roadmap" class="nav-link font-medium">Roadmap</a>
+                    <a href="#get-involved" class="nav-link font-medium">Get Involved</a>
+                </nav>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white text-gray-800">
+            <a href="#vision" class="block py-2 px-4 text-sm hover:bg-gray-100">The Vision</a>
+            <a href="#industries" class="block py-2 px-4 text-sm hover:bg-gray-100">Industries</a>
+            <a href="#structure" class="block py-2 px-4 text-sm hover:bg-gray-100">Structure</a>
+            <a href="#roadmap" class="block py-2 px-4 text-sm hover:bg-gray-100">Roadmap</a>
+            <a href="#get-involved" class="block py-2 px-4 text-sm hover:bg-gray-100">Get Involved</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Building Our Future, Together.</h1>
+                <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-600">A proposal for a community-driven, employee-owned manufacturing enterprise for the Dawoodi Bohra community in the UK, backed by a £5 million interest-free loan.</p>
+                <a href="#vision" class="mt-8 inline-block accent-bg text-white font-bold py-3 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity">Explore the Proposal</a>
+            </div>
+        </section>
+
+        <section id="vision" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold accent-text">The Vision: Empowerment Through Ownership</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">This venture is founded on the principle of uplifting our community. We aim to create a profitable, sustainable business where every participant is a stakeholder, sharing in the success they help create. This is more than a company; it's a collective endeavor in economic empowerment.</p>
+                </div>
+                <div class="mt-16 grid md:grid-cols-3 gap-12 text-center">
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-teal-100 mx-auto">
+                            <span class="text-3xl">🤝</span>
+                        </div>
+                        <h3 class="mt-6 text-xl font-semibold">Community Skills</h3>
+                        <p class="mt-2 text-gray-600">Leveraging the diverse talents within our community, from software development to sales and marketing, to build a vertically integrated powerhouse.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-teal-100 mx-auto">
+                            <span class="text-3xl">💰</span>
+                        </div>
+                        <h3 class="mt-6 text-xl font-semibold">£5M Seed Funding</h3>
+                        <p class="mt-2 text-gray-600">An incredible head start with an interest-free Qardan Hasana loan to establish our manufacturing facility and initial operations.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center justify-center h-16 w-16 rounded-full bg-teal-100 mx-auto">
+                            <span class="text-3xl">📈</span>
+                        </div>
+                        <h3 class="mt-6 text-xl font-semibold">Expert Guidance</h3>
+                        <p class="mt-2 text-gray-600">A pro-bono senior management board of successful business leaders will provide invaluable oversight and mentorship during our setup phase.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="industries" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold accent-text">Potential Manufacturing Industries</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">With £5 million in funding, we can establish a modern, tech-enabled facility in a high-value niche. Below are four potential sectors that align with our skills and market opportunities in the Midlands. Click on an option to explore the details and proposed funding allocation.</p>
+                </div>
+                <div id="industry-cards" class="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="structure" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold accent-text">Legal & Business Structure</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">The right legal framework is crucial to protect our mission of community ownership and empowerment. We've identified three potential structures, with a clear recommendation for our unique model.</p>
+                </div>
+                <div id="structure-cards" class="mt-16 grid md:grid-cols-3 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="roadmap" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold accent-text">Our Roadmap to Launch</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">A clear, step-by-step plan is essential for turning this vision into reality. Here are the five key phases to get our venture off the ground.</p>
+                </div>
+                <div class="mt-16 max-w-3xl mx-auto">
+                    <div id="roadmap-timeline" class="relative border-l-4 border-teal-200 ml-4">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="get-involved" class="py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold accent-text">Become a Part of the Venture</h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">The next crucial step is our community-wide skills audit. If you are interested in becoming a stakeholder in this pioneering project, we invite you to register your interest and professional skills.</p>
+                <button class="mt-8 inline-block highlight-bg text-white font-bold py-3 px-8 rounded-lg text-lg hover:opacity-90 transition-opacity">Register Your Interest</button>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="accent-bg text-white py-6">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Leicester Amilsaheb. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-3xl modal-content overflow-y-auto">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 id="modal-title" class="text-2xl font-bold accent-text"></h3>
+                <button id="modal-close" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div class="p-6 md:p-8 grid md:grid-cols-2 gap-8">
+                <div id="modal-text" class="prose max-w-none"></div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Proposed £5M Funding Allocation</h4>
+                    <div class="chart-container relative h-64 md:h-80 w-full max-w-sm mx-auto">
+                        <canvas id="modal-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const data = {
+                industries: [
+                    {
+                        title: "Specialized Component Manufacturing",
+                        icon: "⚙️",
+                        summary: "Producing high-precision components for the automotive and aerospace sectors in the Midlands.",
+                        details: `
+                            <p>The Midlands is a major hub for advanced manufacturing. This venture would position us as a key supplier in the B2B supply chain.</p>
+                            <h4>Role of Community Skills:</h4>
+                            <ul>
+                                <li><strong>Software Dev:</strong> Create bespoke ERP and inventory management systems to optimize production.</li>
+                                <li><strong>Sales & Marketing:</strong> Secure long-term contracts with major manufacturers like JLR or Rolls-Royce.</li>
+                                <li><strong>Retail/Logistics:</strong> Manage the complex supply chain of raw materials and finished goods.</li>
+                            </ul>
+                        `,
+                        funding: {
+                            labels: ["Advanced Machinery", "Raw Materials", "Facility Setup", "Working Capital"],
+                            values: [2500000, 1000000, 750000, 750000]
+                        }
+                    },
+                    {
+                        title: "Sustainable & Ethical Consumer Goods",
+                        icon: "🌿",
+                        summary: "Manufacturing eco-friendly home goods, sustainable packaging, or upcycled products.",
+                        details: `
+                            <p>This taps into a rapidly growing market of conscious consumers who prioritize sustainability and ethical production.</p>
+                            <h4>Role of Community Skills:</h4>
+                            <ul>
+                                <li><strong>Software Dev:</strong> Build a direct-to-consumer e-commerce platform with a transparent supply chain tracker.</li>
+                                <li><strong>Sales & Marketing:</strong> Create a powerful brand story and build a strong online and offline retail presence.</li>
+                                <li><strong>Retail/Logistics:</strong> Manage distribution to both individual customers and retail partners.</li>
+                            </ul>
+                        `,
+                        funding: {
+                            labels: ["Production Machinery", "Sustainable Materials", "Branding & Marketing", "Facility & E-commerce"],
+                            values: [1500000, 1000000, 1250000, 1250000]
+                        }
+                    },
+                    {
+                        title: "Niche Food & Beverage Production",
+                        icon: "🍲",
+                        summary: "Creating a high-quality, artisan brand of specialty food products, from sauces to baked goods.",
+                        details: `
+                            <p>The UK market for local and specialty food is strong. We can build a beloved brand with a story of community and quality.</p>
+                            <h4>Role of Community Skills:</h4>
+                            <ul>
+                                <li><strong>Software Dev:</strong> Develop an online store and a subscription box model.</li>
+                                <li><strong>Sales & Marketing:</strong> Secure placement in specialty food stores, supermarkets, and build a strong social media brand.</li>
+                                <li><strong>Retail/Logistics:</strong> Manage food production regulations, packaging, and distribution.</li>
+                            </ul>
+                        `,
+                        funding: {
+                            labels: ["Commercial Kitchen Equip.", "Ingredients & Packaging", "Marketing & Branding", "Certifications & Logistics"],
+                            values: [1250000, 1500000, 1500000, 750000]
+                        }
+                    },
+                    {
+                        title: "Bespoke Furniture & Home Goods",
+                        icon: "🛋️",
+                        summary: "A workshop producing custom, high-quality furniture and home accessories for discerning clients.",
+                        details: `
+                            <p>This high-margin business caters to the growing demand for unique, well-crafted items for homes and businesses.</p>
+                            <h4>Role of Community Skills:</h4>
+                            <ul>
+                                <li><strong>Software Dev:</strong> Build a 3D product customizer and a sophisticated online portfolio and order management system.</li>
+                                <li><strong>Sales & Marketing:</strong> Focus on design consultations, B2B contracts with interior designers, and high-end client acquisition.</li>
+                                <li><strong>Retail/Logistics:</strong> Manage material sourcing, workshop production flow, and white-glove delivery.</li>
+                            </ul>
+                        `,
+                        funding: {
+                            labels: ["Woodworking Machinery", "High-Quality Materials", "Showroom & Workshop", "Marketing & Design"],
+                            values: [2000000, 1250000, 1000000, 750000]
+                        }
+                    }
+                ],
+                structures: [
+                    {
+                        title: "Community Interest Company (CIC)",
+                        summary: "A company whose primary purpose is community benefit rather than private profit. An 'asset lock' ensures assets are used for social objectives.",
+                        recommended: false
+                    },
+                    {
+                        title: "Co-operative Society",
+                        summary: "A democratic business owned and run by its members. Each member typically gets one vote, ensuring equal say in major decisions.",
+                        recommended: false
+                    },
+                    {
+                        title: "Employee Ownership Trust (EOT)",
+                        summary: "A trust holds a majority of the company's shares on behalf of all employees. Offers significant tax advantages and aligns with our mission.",
+                        recommended: true
+                    }
+                ],
+                roadmap: [
+                    {
+                        title: "Form Interim Steering Committee",
+                        description: "Assemble a small group of key community members to lead the initial research and planning phase."
+                    },
+                    {
+                        title: "Conduct Skills Audit & Recruitment",
+                        description: "Launch a formal sign-up process to identify all available professional skills and expertise within the community."
+                    },
+                    {
+                        title: "Define Governance Roles",
+                        description: "Clearly outline the roles and responsibilities of the senior management board and the employee-owners."
+                    },
+                    {
+                        title: "Validate Detailed Business Plan",
+                        description: "Based on the skills audit, create a comprehensive business plan with financial projections and a loan repayment strategy."
+                    },
+                    {
+                        title: "Formalize Legal Structure & Launch",
+                        description: "Engage legal professionals to establish the EOT/CIC and officially launch the business entity."
+                    }
+                ]
+            };
+
+            const industryCardsContainer = document.getElementById('industry-cards');
+            data.industries.forEach(industry => {
+                const card = document.createElement('div');
+                card.className = 'card bg-white p-6 rounded-lg shadow-lg cursor-pointer';
+                card.innerHTML = `
+                    <div class="flex items-center justify-center h-16 w-16 rounded-full bg-teal-100 mx-auto text-3xl">${industry.icon}</div>
+                    <h3 class="mt-6 text-xl font-semibold text-center">${industry.title}</h3>
+                    <p class="mt-2 text-gray-600 text-center">${industry.summary}</p>
+                `;
+                card.addEventListener('click', () => openModal(industry));
+                industryCardsContainer.appendChild(card);
+            });
+
+            const structureCardsContainer = document.getElementById('structure-cards');
+            data.structures.forEach(structure => {
+                const card = document.createElement('div');
+                card.className = `card p-8 rounded-lg shadow-lg text-center ${structure.recommended ? 'bg-teal-50 border-2 border-teal-500' : 'bg-white'}`;
+                card.innerHTML = `
+                    <h3 class="text-xl font-bold ${structure.recommended ? 'accent-text' : ''}">${structure.title}</h3>
+                    <p class="mt-4 text-gray-600">${structure.summary}</p>
+                    ${structure.recommended ? '<div class="mt-4 inline-block highlight-bg text-white text-xs font-bold py-1 px-3 rounded-full">RECOMMENDED</div>' : ''}
+                `;
+                structureCardsContainer.appendChild(card);
+            });
+
+            const roadmapContainer = document.getElementById('roadmap-timeline');
+            data.roadmap.forEach((step, index) => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item mb-8 pl-8 relative';
+                item.innerHTML = `
+                    <div class="absolute -left-3.5 top-4 h-full w-0.5 bg-teal-200"></div>
+                    <p class="text-sm font-semibold highlight-text">STEP ${index + 1}</p>
+                    <h3 class="text-xl font-semibold mt-1">${step.title}</h3>
+                    <p class="mt-2 text-gray-600">${step.description}</p>
+                `;
+                roadmapContainer.appendChild(item);
+            });
+
+            const modal = document.getElementById('modal');
+            const modalClose = document.getElementById('modal-close');
+            const modalTitle = document.getElementById('modal-title');
+            const modalText = document.getElementById('modal-text');
+            const modalChartCanvas = document.getElementById('modal-chart');
+            let chartInstance = null;
+            
+            function openModal(industry) {
+                modalTitle.textContent = industry.title;
+                modalText.innerHTML = industry.details;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+
+                chartInstance = new Chart(modalChartCanvas, {
+                    type: 'doughnut',
+                    data: {
+                        labels: industry.funding.labels,
+                        datasets: [{
+                            data: industry.funding.values,
+                            backgroundColor: ['#387A7A', '#4FD1C5', '#81E6D9', '#D69E2E'],
+                            borderColor: '#FDFBF8',
+                            borderWidth: 4,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    boxWidth: 12,
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        let label = context.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed !== null) {
+                                            label += new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', minimumFractionDigits: 0 }).format(context.parsed);
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+
+            function closeModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+
+            modalClose.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a, #header a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if(targetElement){
+                            const headerOffset = document.getElementById('header').offsetHeight;
+                            const elementPosition = targetElement.getBoundingClientRect().top;
+                            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                      
+                            window.scrollTo({
+                                 top: offsetPosition,
+                                 behavior: "smooth"
+                            });
+                        }
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
